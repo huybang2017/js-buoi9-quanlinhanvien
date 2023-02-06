@@ -24,14 +24,14 @@ function createEmployee() {
     employeeList.push(employee);
     renderTable(employeeList);
 }
-// Hàm tìm kiếm nhân viên theo tên
+// Hàm tìm kiếm nhân viên theo xếp loại 
 function searchEmployee() {
     let search = getElement("#searchName").value;
     let newEmployeeList = employeeList.filter((employee) => {
-        let name = employee.name.toLowerCase();
+        let xepLoai = employee.classification().toLowerCase();
         search = search.toLowerCase();
 
-        return name.indexOf(search) !== -1;
+        return xepLoai.indexOf(search) !== -1;
     });
 
     renderTable(newEmployeeList);
@@ -60,6 +60,7 @@ function fixEmployee(employeeAccount){
     getElement("#gioLam").value = selectedEmployee.timeWork;
 
     getElement("#tknv").disabled = true;
+    getElement("#btnThemNV").disabled = true;
 }
 // Hàm cập nhật thông tin nhân viên
 function updateEmployee(){
@@ -103,6 +104,7 @@ function resetForm(){
     getElement("#gioLam").value = "";
 
     getElement("#tknv").disabled = false;
+    getElement("#btnThemNV").disabled = false;
 }
 // Hàm hiển thị nhân viên
 function renderTable(employeeList) {
