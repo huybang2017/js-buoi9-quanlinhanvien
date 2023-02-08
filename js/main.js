@@ -192,20 +192,12 @@ function validate() {
     let competence = getElement("#chucvu").value;
     let timeWork = getElement("#gioLam").value;
 
-    // getElement("#tbTKNV").style.display = "block";
-    // getElement("#tbTen").style.display = "block";
-    // getElement("#tbEmail").style.display = "block";
-    // getElement("#tbMatKhau").style.display = "block";
-    // getElement("#tbNgay").style.display = "block";
-    // getElement("#tbLuongCB").style.display = "block";
-    // getElement("#tbChucVu").style.display = "block";
-    // getElement("#tbGiolam").style.display = "block";
     // kiểm tra account
     if (!account.trim()) {
         isValid = false;
         getElement("#tbTKNV").innerHTML = `không được để trống`;
         getElement("#tbTKNV").style.display = "block";
-    }else if(!/^[a-zA-Z0-9]{4,6}$/.test(account)){
+    } else if (!/^[0-9]{4,6}$/.test(account)) {
         isValid = false;
         getElement("#tbTKNV").innerHTML = `không hợp lệ`;
         getElement("#tbTKNV").style.display = "block";
@@ -216,7 +208,7 @@ function validate() {
         isValid = false;
         getElement("#tbTen").innerHTML = `không được để trống`;
         getElement("#tbTen").style.display = "block";
-    }else if(!/^[a-zA-Z\s]{1,}$/.test(name)){
+    } else if (!/^[a-zA-Z\s]{1,}$/.test(name)) {
         isValid = false;
         getElement("#tbTen").innerHTML = `không hợp lệ`;
         getElement("#tbTen").style.display = "block";
@@ -226,7 +218,7 @@ function validate() {
         isValid = false;
         getElement("#tbEmail").innerHTML = `không được để trống`;
         getElement("#tbEmail").style.display = "block";
-    }else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         isValid = false;
         getElement("#tbEmail").innerHTML = `không hợp lệ`;
         getElement("#tbEmail").style.display = "block";
@@ -246,24 +238,46 @@ function validate() {
         isValid = false;
         getElement("#tbNgay").innerHTML = `không được để trống`;
         getElement("#tbNgay").style.display = "block";
+    }else if(!/(\d{1,2})\/(\d{1,12})\/(\d{4})/.test(dateOfWork)){
+        isValid = false;
+        getElement("#tbNgay").innerHTML = `không đúng định dạng`;
+        getElement("#tbNgay").style.display = "block";
     }
     // kiểm tra lương CB
     if (!salary.trim()) {
         isValid = false;
         getElement("#tbLuongCB").innerHTML = `không được để trống`;
         getElement("#tbLuongCB").style.display = "block";
+    } else {
+        if (parseInt(salary) < 1000000 || parseInt(salary) > 20000000) {
+            isValid = false;
+            getElement("#tbLuongCB").innerHTML = `không hợp lệ`;
+            getElement("#tbLuongCB").style.display = "block";
+        }
     }
     // kiểm tra chức vụ
     if (!competence.trim()) {
         isValid = false;
-        getElement("#tbChucVu").innerHTML = `chọn chức vụ`;
+        getElement("#tbChucVu").innerHTML = `không được để trống`;
         getElement("#tbChucVu").style.display = "block";
+    } else {
+        if (competence === "Chọn chức vụ") {
+            isValid = false;
+            getElement("#tbChucVu").innerHTML = `chọn chức vụ`;
+            getElement("#tbChucVu").style.display = "block";
+        }
     }
     // kiểm tra giờ làm
     if (!timeWork.trim()) {
         isValid = false;
         getElement("#tbGiolam").innerHTML = `không được để trống`;
         getElement("#tbGiolam").style.display = "block";
+    } else {
+        if (parseInt(timeWork) < 80 || parseInt(timeWork) > 200) {
+            isValid = false;
+            getElement("#tbGiolam").innerHTML = `không hợp lệ`;
+            getElement("#tbGiolam").style.display = "block";
+        }
     }
     return isValid;
 }
